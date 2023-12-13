@@ -5,15 +5,21 @@ import likeRoutes from './routes/likes.js';
 import commentRoutes from './routes/comments.js';
 import authRoutes from './routes/auth.js';
 
+// Setup express
 const app = Express();
 const port = 8800;
 
+// Middlewares
+app.use(Express.json());
+
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/likes', likeRoutes);
 
+// Start server
 app.listen(port, () => {
   console.log(`Server listening on port ${port}: http://localhost:${port}`);
 });
