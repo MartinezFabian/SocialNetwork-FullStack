@@ -12,8 +12,13 @@ const app = Express();
 const port = 8800;
 
 // Middlewares
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', true);
+  next();
+});
+
 app.use(Express.json());
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000' })); // Client is running on port 3000
 app.use(cookieParser());
 
 // Routes
