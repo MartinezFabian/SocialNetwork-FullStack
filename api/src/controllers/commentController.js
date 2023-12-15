@@ -28,5 +28,17 @@ export const addComment = (req, res) => {
 };
 
 export const getComments = (req, res) => {
-  // TODO: Implement this controller
+  const q = `
+    SELECT c.*, u.name 
+    FROM comments AS c INNER JOIN users AS u 
+    ON c.userid = u.id
+    WHERE c.postid = ?
+    ORDER BY c.created_ago DESC;
+  `;
+
+  db.query(q, [req.query.postid], (err, data) => {
+    if (err) return res.status(500).json(err);
+
+    return res.status(200).json(data);
+  });
 };
