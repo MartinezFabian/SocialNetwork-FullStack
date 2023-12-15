@@ -27,5 +27,27 @@ export const addPost = (req, res) => {
 };
 
 export const getPost = (req, res) => {
-  // TODO: Implement this controller
+  const token = req.cookies.access_token;
+
+  if (!token) return res.status(401).json('Not authenticated!');
+
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, userInfo) => {
+    if (err) return res.status(403).json('Token is not valid!');
+
+    const q = `
+      SELECT p.*, u.name
+      FROM posts AS p INNER JOIN users AS u
+      ON p.userid = u.id
+      LEFT JOIN relationships AS r
+      ON r.followed_userid = p.userid
+      WHERE r.follower_userid = ? OR p.userid = ?
+      ORDER BY p.created_ago DESC;
+    `;
+
+    db.query(q, [userInfo.id, userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+
+      return res.status(200).json(data);
+    });
+  });
 };
