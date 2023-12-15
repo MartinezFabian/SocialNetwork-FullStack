@@ -22,7 +22,17 @@ export const addLike = (req, res) => {
 };
 
 export const getLikes = (req, res) => {
-  // TODO: Implement this controller
+  const q = `
+    SELECT userid
+    FROM likes
+    WHERE postid = ?;
+  `;
+
+  db.query(q, [req.query.postid], (err, data) => {
+    if (err) return res.status(500).json(err);
+
+    return res.status(200).json(data.map((like) => like.userid)); // [userid, userid, ...]
+  });
 };
 
 export const deleteLike = (req, res) => {
