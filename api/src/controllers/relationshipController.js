@@ -31,5 +31,19 @@ export const getRelationship = (req, res) => {
 };
 
 export const deleteRelationship = (req, res) => {
-  // TODO: implement this controller
+  const token = req.cookies.access_token;
+
+  if (!token) return res.status(401).json('Not authenticated!');
+
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, userInfo) => {
+    if (err) return res.status(403).json('Token is not valid!');
+
+    const q = 'DELETE FROM relationships WHERE `follower_userid` = ? AND `followed_userid` = ?';
+
+    db.query(q, [userInfo.id, req.query.userId], (err, data) => {
+      if (err) return res.status(500).json(err);
+
+      return res.status(200).json('Unfollow user!');
+    });
+  });
 };
