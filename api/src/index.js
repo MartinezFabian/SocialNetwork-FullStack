@@ -23,10 +23,10 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/likes', likeRoutes);
+app.use('/api/users', userRoutes);
 
 // Start server
 app.listen(port, () => {
