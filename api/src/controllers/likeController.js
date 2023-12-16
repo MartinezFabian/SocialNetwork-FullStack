@@ -36,5 +36,19 @@ export const getLikes = (req, res) => {
 };
 
 export const deleteLike = (req, res) => {
-  // TODO: Implement this controller
+  const token = req.cookies.access_token;
+
+  if (!token) return res.status(401).json('Not authenticated!');
+
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, userInfo) => {
+    if (err) return res.status(403).json('Token is not valid!');
+
+    const q = `DELETE FROM likes WHERE userid = ? AND postid = ?;`;
+
+    db.query(q, [userInfo.id, req.query.postid], (err, data) => {
+      if (err) return res.status(500).json(err);
+
+      return res.status(200).json('The like has been removed');
+    });
+  });
 };
