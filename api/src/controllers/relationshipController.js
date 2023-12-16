@@ -22,7 +22,12 @@ export const addRelationship = (req, res) => {
 };
 
 export const getRelationship = (req, res) => {
-  // TODO: implement this controller
+  const q = 'SELECT follower_userid FROM relationships WHERE followed_userid = ?;';
+
+  db.query(q, [req.query.followedUserId], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data.map((relationship) => relationship.follower_userid)); // output: [follower_userid, follower_userid, ...]
+  });
 };
 
 export const deleteRelationship = (req, res) => {
