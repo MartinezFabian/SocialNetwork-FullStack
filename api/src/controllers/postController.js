@@ -38,15 +38,16 @@ export const getPost = (req, res) => {
 
     // first query to get posts only from the user
     // second query to get posts from the user and the user's followers
-    const q = userId
-      ? `
+    const q =
+      userId !== undefined
+        ? `
       SELECT p.*, u.name
       FROM posts AS p INNER JOIN users AS u
       ON p.userid = u.id 
       WHERE p.userid = ?
       ORDER BY p.created_ago DESC;
     `
-      : `
+        : `
       SELECT p.*, u.name
       FROM posts AS p INNER JOIN users AS u
       ON p.userid = u.id
@@ -56,7 +57,9 @@ export const getPost = (req, res) => {
       ORDER BY p.created_ago DESC;
     `;
 
-    db.query(q, userId ? [userId] : [userInfo.id, userInfo.id], (err, data) => {
+    const values = userId !== undefined ? [userId] : [userInfo.id, userInfo.id];
+
+    db.query(q, values, (err, data) => {
       if (err) return res.status(500).json(err);
 
       return res.status(200).json(data);
