@@ -42,3 +42,23 @@ export const getComments = (req, res) => {
     return res.status(200).json(data);
   });
 };
+
+export const deleteComment = (req, res) => {
+  const token = req.cookies.access_token;
+
+  if (!token) return res.status(401).json('Not authenticated!');
+
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, userInfo) => {
+    if (err) return res.status(403).json('Token is not valid!');
+
+    const q = `DELETE FROM comments WHERE id = ? AND userid = ?`;
+
+    db.query(q, [req.params.id, userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+
+      if (data.affectedRows > 0) return res.status(200).json('Comment has been deleted!');
+
+      return res.status(403).json('You can delete only your comment!');
+    });
+  });
+};

@@ -2,19 +2,12 @@ import jwt from 'jsonwebtoken';
 import { db } from '../../connect.js';
 
 export const getUsers = (req, res) => {
-  const q = `SELECT * FROM users`;
+  const q = `SELECT id, name FROM users`;
 
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
 
-    const users = data.map((user) => {
-      return {
-        id: user.id,
-        name: user.name,
-      };
-    });
-
-    return res.status(200).json(users);
+    return res.status(200).json(data);
   });
 };
 
