@@ -1,7 +1,9 @@
+import { LoginPage } from './auth/pages/LoginPage';
+
 export const App = () => {
   return (
     <>
-      <h1>Hello World from React!</h1>
+      <LoginPage></LoginPage>
     </>
   );
 };
