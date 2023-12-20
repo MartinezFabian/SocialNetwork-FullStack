@@ -34,10 +34,10 @@ export const LoginPage = () => {
           </div>
 
           <div className={styles.buttons}>
+            <button className={styles.button}>Register</button>
             <button type="submit" className={styles.button}>
               Sign in
             </button>
-            <button className={styles.button}>Register</button>
           </div>
         </form>
       </div>
