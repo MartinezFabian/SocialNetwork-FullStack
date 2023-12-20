@@ -1,7 +1,7 @@
 /* Variables */
 :root {
   --color-primary: #5448ee;
-  --color-background: #222;
+  --color-background: #191919;
   --color-background-soft: #333;
   --text-color: rgb(227, 227, 227);
   --text-color-soft: lightgray;
@@ -22,7 +22,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.6rem;
   line-height: 1.4;
   background-color: var(--color-background);
@@ -35,4 +35,8 @@ a {
 
 ul {
   list-style: none;
+}
+
+button {
+  font-family: 'Inter', sans-serif;
 }
