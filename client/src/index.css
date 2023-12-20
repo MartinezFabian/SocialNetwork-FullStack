@@ -1,0 +1,38 @@
+/* Variables */
+:root {
+  --color-primary: #5448ee;
+  --color-background: #222;
+  --color-background-soft: #333;
+  --text-color: rgb(227, 227, 227);
+  --text-color-soft: lightgray;
+  --logo-color: rgb(242, 242, 242);
+  --border-color: #444;
+}
+
+/* Global Styles */
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; /* 1rem = 10px */
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  background-color: var(--color-background);
+  color: var(--text-color);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
