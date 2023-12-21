@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { LeftBar } from '../social/components/LeftBar';
-import { Navbar } from '../social/components/Navbar';
-import { RightBar } from '../social/components/RightBar';
+import { LeftBar } from './LeftBar';
+import { Navbar } from './Navbar';
+import { RightBar } from './RightBar';
 
 export const Layout = () => {
   return (
@@ -9,9 +9,9 @@ export const Layout = () => {
       <Navbar></Navbar>
       <div style={{ display: 'flex' }}>
         <LeftBar />
-        <div style={{ flex: 6 }}>
+        <main style={{ flex: 6 }}>
           <Outlet />
-        </div>
+        </main>
         <RightBar />
       </div>
     </>
