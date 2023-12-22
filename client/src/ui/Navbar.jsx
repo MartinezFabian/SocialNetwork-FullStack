@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import ConnectWithoutContactOutlinedIcon from '@mui/icons-material/ConnectWithoutContactOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import styles from './Navbar.module.css';
 
 export const Navbar = () => {
@@ -14,7 +14,9 @@ export const Navbar = () => {
       </Link>
 
       <Link to="/profile/1" className={styles.link}>
-        <AccountCircleOutlinedIcon sx={{ fontSize: 18, color: '#fff' }}></AccountCircleOutlinedIcon>
+        <AccountCircleRoundedIcon
+          sx={{ fontSize: 20, color: '#766cff' }}
+        ></AccountCircleRoundedIcon>
         <span className={styles.username}>Fabian Martinez</span>
       </Link>
     </nav>

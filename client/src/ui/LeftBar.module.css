@@ -1,5 +1,4 @@
 .aside {
-  background-color: var(--color-background);
   border-right: 1px solid var(--border-color);
   padding: 1.5rem 4rem;
   display: flex;
@@ -16,7 +15,10 @@
 }
 
 .link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
   padding: 1rem 6rem;
   text-decoration: none;
   color: var(--text-color);
@@ -26,7 +28,7 @@
 
 .link:hover,
 .link:focus {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary--soft);
   color: var(--text-color);
 }
 

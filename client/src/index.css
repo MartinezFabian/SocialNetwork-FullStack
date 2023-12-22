@@ -1,11 +1,11 @@
 /* Variables */
 :root {
   --color-primary: #5448ee;
-  --color-primary--soft: #675dff;
+  --color-primary--soft: #766cff;
   --color-background: #191919;
   --color-background-soft: #333;
   --text-color: rgb(227, 227, 227);
-  --text-color-soft: lightgray;
+  --text-color-soft: rgb(210, 209, 209);
   --logo-color: rgb(242, 242, 242);
   --border-color: #444;
 }

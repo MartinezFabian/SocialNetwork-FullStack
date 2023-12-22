@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import styles from './LeftBar.module.css';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 
 export const LeftBar = () => {
   return (
@@ -7,12 +9,12 @@ export const LeftBar = () => {
       <ul className={styles.list}>
         <li className={styles.item}>
           <NavLink
-            exact
             to="/"
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active} ` : styles.link
             }
           >
+            <HomeRoundedIcon />
             Home
           </NavLink>
         </li>
@@ -23,6 +25,7 @@ export const LeftBar = () => {
               isActive ? `${styles.link} ${styles.active} ` : styles.link
             }
           >
+            <PersonRoundedIcon />
             Profile
           </NavLink>
         </li>
