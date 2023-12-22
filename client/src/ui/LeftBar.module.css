@@ -1,0 +1,36 @@
+.aside {
+  background-color: var(--color-background);
+  border-right: 1px solid var(--border-color);
+  padding: 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  margin-bottom: 1rem;
+}
+
+.link {
+  display: block;
+  padding: 1rem 6rem;
+  text-decoration: none;
+  color: var(--text-color);
+  border-radius: 1.6rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.link:hover,
+.link:focus {
+  background-color: var(--color-primary);
+  color: var(--text-color);
+}
+
+.active {
+  background-color: var(--color-primary);
+  color: var(--text-color);
+}
