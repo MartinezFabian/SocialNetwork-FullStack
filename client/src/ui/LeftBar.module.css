@@ -1,8 +1,23 @@
 .aside {
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-  padding: 1.5rem 4rem;
-  display: flex;
-  flex-direction: column;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .aside {
+    width: 24rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: var(--color-background);
+    z-index: 1;
+
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    padding: 8rem 4rem;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background);
+  }
 }
 
 .list {
@@ -17,6 +32,7 @@
 .link {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 
   padding: 1rem 6rem;

@@ -1,6 +1,8 @@
 .aside {
   padding: 8rem 2rem;
   background-color: var(--color-background-soft);
+  max-width: 38rem;
+  margin: 0 auto;
 }
 
 .card {

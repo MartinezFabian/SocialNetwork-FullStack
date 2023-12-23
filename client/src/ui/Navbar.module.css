@@ -1,8 +1,14 @@
 .navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--color-background);
+  z-index: 2;
+
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 @media (min-width: 468px) {
