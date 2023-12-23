@@ -2,11 +2,12 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 @media (min-width: 468px) {
   .navbar {
-    padding: 2rem 4rem;
+    padding: 1.4rem 4rem;
   }
 }
 

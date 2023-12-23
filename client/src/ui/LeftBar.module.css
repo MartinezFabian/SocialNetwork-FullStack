@@ -1,5 +1,5 @@
 .aside {
-  border-right: 1px solid var(--border-color);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   padding: 1.5rem 4rem;
   display: flex;
   flex-direction: column;
