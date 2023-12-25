@@ -7,9 +7,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 import styles from './Post.module.css';
+import { CommentsList } from './CommentsList';
 
 export const Post = ({ id, description, userid, created_ago, name }) => {
-  const [commentOpen, setCommentOpen] = useState(false);
+  const [commentOpen, setCommentOpen] = useState(true);
   const liked = false;
 
   return (
@@ -38,11 +39,12 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
           {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
           100 Likes
         </div>
-        <div className={styles.item}>
+        <div onClick={() => setCommentOpen((prevState) => !prevState)} className={styles.item}>
           <TextsmsOutlinedIcon />
           22 Comments
         </div>
       </section>
+      {commentOpen ? <CommentsList></CommentsList> : null}
     </li>
   );
 };
