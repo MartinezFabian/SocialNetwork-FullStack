@@ -1,3 +1,4 @@
+import { AddPost } from '../components/AddPost';
 import { Post } from '../components/Post';
 import styles from './HomePage.module.css';
 
@@ -70,6 +71,8 @@ export const HomePage = () => {
 
   return (
     <div className={styles.homepage}>
+      <AddPost></AddPost>
+
       <ul className={styles.posts}>
         {posts.map((post) => {
           return <Post key={post.id} {...post}></Post>;

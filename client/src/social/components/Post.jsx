@@ -10,7 +10,7 @@ import styles from './Post.module.css';
 import { CommentsList } from './CommentsList';
 
 export const Post = ({ id, description, userid, created_ago, name }) => {
-  const [commentOpen, setCommentOpen] = useState(true);
+  const [commentOpen, setCommentOpen] = useState(false);
   const liked = false;
 
   return (
