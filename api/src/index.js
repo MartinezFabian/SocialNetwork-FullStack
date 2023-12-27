@@ -14,13 +14,13 @@ const app = Express();
 const port = 8800;
 
 // Middlewares
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', true);
-  next();
-});
+const corsOptions = {
+  origin: 'http://localhost:5173', // Client is running on port 5173
+  credentials: true,
+};
 
+app.use(cors(corsOptions));
 app.use(Express.json());
-app.use(cors({ origin: 'http://localhost:3000' })); // Client is running on port 3000
 app.use(cookieParser());
 
 // Routes
