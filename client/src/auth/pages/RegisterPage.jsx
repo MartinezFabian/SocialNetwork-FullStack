@@ -1,7 +1,11 @@
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import styles from './RegisterPage.module.css';
+import { useState } from 'react';
 
 export const RegisterPage = () => {
+  const [error, setError] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -10,10 +14,14 @@ export const RegisterPage = () => {
     reset,
   } = useForm();
 
-  const onFormSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onFormSubmit = handleSubmit(async (data) => {
+    try {
+      await axios.post('http://localhost:8800/api/auth/register', data);
 
-    reset();
+      reset();
+    } catch (error) {
+      setError(error.response.data);
+    }
   });
 
   return (
@@ -135,6 +143,7 @@ export const RegisterPage = () => {
               Register
             </button>
           </div>
+          {error !== '' ? <span className={styles.error}>{error}</span> : null}
         </form>
       </div>
     </main>
