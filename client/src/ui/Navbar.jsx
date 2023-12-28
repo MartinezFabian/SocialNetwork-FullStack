@@ -2,8 +2,12 @@ import { Link } from 'react-router-dom';
 import ConnectWithoutContactOutlinedIcon from '@mui/icons-material/ConnectWithoutContactOutlined';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import styles from './Navbar.module.css';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 export const Navbar = () => {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <nav className={styles.navbar}>
       <Link to="/" className={styles.link}>
@@ -17,7 +21,7 @@ export const Navbar = () => {
         <AccountCircleRoundedIcon
           sx={{ fontSize: 20, color: '#766cff' }}
         ></AccountCircleRoundedIcon>
-        <span className={styles.username}>Fabian Martinez</span>
+        <span className={styles.username}>{currentUser.username}</span>
       </Link>
     </nav>
   );

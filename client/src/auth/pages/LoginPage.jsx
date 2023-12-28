@@ -2,14 +2,20 @@ import { useForm } from 'react-hook-form';
 import styles from './LoginPage.module.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginPage = () => {
   const { register, handleSubmit } = useForm();
-  const { loginUser, errorMessage } = useContext(AuthContext);
+  const { currentUser, loginUser, errorMessage } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const onFormSubmit = handleSubmit(async (data) => {
     try {
       await loginUser(data);
+
+      if (currentUser) {
+        navigate('/');
+      }
     } catch (error) {
       console.error(error);
     }

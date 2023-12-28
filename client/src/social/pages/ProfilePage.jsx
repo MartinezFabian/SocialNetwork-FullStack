@@ -5,8 +5,12 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 import { Post } from '../components/Post';
 import styles from './ProfilePage.module.css';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 export const ProfilePage = () => {
+  const { currentUser } = useContext(AuthContext);
+
   const posts = [
     {
       id: 15,
@@ -49,18 +53,21 @@ export const ProfilePage = () => {
             <AccountCircleRoundedIcon
               sx={{ fontSize: 80, color: '#766cff' }}
             ></AccountCircleRoundedIcon>
-            <span className={styles.username}>Fabian Martinez</span>
+            <span className={styles.username}>{currentUser.name}</span>
           </div>
 
           <div className={styles.center}>
             <div className={styles.info}>
               <div className={styles.item}>
+                <span className={styles.city}>@{currentUser.username}</span>
+              </div>
+              <div className={styles.item}>
                 <PlaceIcon />
-                <span className={styles.city}>Chaco Arg</span>
+                <span className={styles.city}>{currentUser.city}</span>
               </div>
               <div className={styles.item}>
                 <LanguageIcon />
-                <a className={styles.contact}>FabianMartinezDev@gmail.com</a>
+                <a className={styles.contact}>{currentUser.contact}</a>
               </div>
             </div>
 
