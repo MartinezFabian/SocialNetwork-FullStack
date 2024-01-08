@@ -8,6 +8,10 @@ import { AuthContext } from '../context/AuthContext';
 export const LeftBar = () => {
   const { currentUser } = useContext(AuthContext);
 
+  const onProfileRefresh = () => {
+    history.push(`/profile/${currentUser.id}`);
+  };
+
   return (
     <aside className={styles.aside}>
       <ul className={styles.list}>
@@ -25,6 +29,7 @@ export const LeftBar = () => {
         <li className={styles.item}>
           <NavLink
             to={`/profile/${currentUser.id}`}
+            onClick={onProfileRefresh}
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active} ` : styles.link
             }

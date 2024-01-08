@@ -8,6 +8,10 @@ import { AuthContext } from '../context/AuthContext';
 export const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
 
+  const onProfileRefresh = () => {
+    history.push(`/profile/${currentUser.id}`);
+  };
+
   return (
     <nav className={styles.navbar}>
       <Link to="/" className={styles.link}>
@@ -17,7 +21,7 @@ export const Navbar = () => {
         <h1 className={styles.appname}>Social Network </h1>
       </Link>
 
-      <Link to="/profile/1" className={styles.link}>
+      <Link to={`/profile/${currentUser.id}`} onClick={onProfileRefresh} className={styles.link}>
         <AccountCircleRoundedIcon
           sx={{ fontSize: 20, color: '#766cff' }}
         ></AccountCircleRoundedIcon>

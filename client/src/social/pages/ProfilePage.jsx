@@ -1,3 +1,8 @@
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+
 import PlaceIcon from '@mui/icons-material/Place';
 import LanguageIcon from '@mui/icons-material/Language';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -5,12 +10,10 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 import { Post } from '../components/Post';
 import styles from './ProfilePage.module.css';
-
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import { makeRequest } from '../../axios';
 
 export const ProfilePage = () => {
+  const { currentUser } = useContext(AuthContext);
   const { id } = useParams();
 
   const {
@@ -71,7 +74,11 @@ export const ProfilePage = () => {
                 </div>
               </div>
 
-              <button className={styles.follow}>follow</button>
+              {parseInt(currentUser.id) === parseInt(id) ? (
+                <button className={styles.follow}>Edit Profile</button>
+              ) : (
+                <button className={styles.follow}>follow</button>
+              )}
             </div>
           </div>
         </div>
