@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import styles from './RegisterPage.module.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export const RegisterPage = () => {
   const [error, setError] = useState('');
@@ -138,7 +139,9 @@ export const RegisterPage = () => {
           </div>
 
           <div className={styles.buttons}>
-            <button className={styles.button}>Sign in</button>
+            <Link to="/login">
+              <button className={styles.button}>Sign in</button>
+            </Link>
             <button type="submit" className={styles.button}>
               Register
             </button>

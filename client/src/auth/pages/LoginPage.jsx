@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import styles from './LoginPage.module.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const LoginPage = () => {
   const { register, handleSubmit } = useForm();
@@ -56,7 +56,9 @@ export const LoginPage = () => {
           </div>
 
           <div className={styles.buttons}>
-            <button className={styles.button}>Register</button>
+            <Link to="/register">
+              <button className={styles.button}>Register</button>
+            </Link>
             <button type="submit" className={styles.button}>
               Sign in
             </button>

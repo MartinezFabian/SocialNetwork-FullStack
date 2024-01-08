@@ -4,9 +4,11 @@ import { ProfilePage } from './social/pages/ProfilePage';
 import { LoginPage } from './auth/pages/LoginPage';
 import { RegisterPage } from './auth/pages/RegisterPage';
 import { Layout } from './ui/Layout';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
 export const App = () => {
-  const currentUser = true;
+  const { currentUser } = useContext(AuthContext);
 
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
