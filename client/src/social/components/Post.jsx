@@ -44,7 +44,7 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
           22 Comments
         </div>
       </section>
-      {commentOpen ? <CommentsList></CommentsList> : null}
+      {commentOpen ? <CommentsList postid={id}></CommentsList> : null}
     </li>
   );
 };
