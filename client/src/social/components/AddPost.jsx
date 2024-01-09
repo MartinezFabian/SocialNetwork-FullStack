@@ -1,9 +1,25 @@
 import { useState } from 'react';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import styles from './AddPost.module.css';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { makeRequest } from '../../axios';
 
 export const AddPost = () => {
   const [text, setText] = useState('');
+
+  const queryClient = useQueryClient();
+
+  const uploadPost = (newPost) => {
+    return makeRequest.post('/posts', newPost);
+  };
+
+  const mutation = useMutation({
+    mutationFn: uploadPost,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    },
+  });
 
   const onInputChange = (e) => {
     setText(e.target.value);
@@ -11,7 +27,10 @@ export const AddPost = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    console.log(text);
+
+    mutation.mutate({ description: text });
+
+    setText('');
   };
 
   return (
