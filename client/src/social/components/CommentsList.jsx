@@ -1,10 +1,37 @@
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import styles from './CommentsList.module.css';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '../../axios';
 import moment from 'moment';
+import { useState } from 'react';
 
 export const CommentsList = ({ postid }) => {
+  const [text, setText] = useState('');
+
+  const queryClient = useQueryClient();
+
+  const uploadComment = (newComment) => {
+    return makeRequest.post('/comments', newComment);
+  };
+
+  const mutation = useMutation({
+    mutationFn: uploadComment,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['comments'] });
+    },
+  });
+
+  const onInputChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const onSendComment = () => {
+    mutation.mutate({ description: text, postId: postid });
+
+    setText('');
+  };
+
   const {
     isLoading,
     error,
@@ -23,8 +50,16 @@ export const CommentsList = ({ postid }) => {
         <AccountCircleRoundedIcon
           sx={{ fontSize: 28, color: '#766cff' }}
         ></AccountCircleRoundedIcon>
-        <input type="text" placeholder="write a comment" className={styles.input} />
-        <button className={styles.button}>Send</button>
+        <input
+          type="text"
+          onChange={onInputChange}
+          value={text}
+          placeholder="write a comment"
+          className={styles.input}
+        />
+        <button onClick={onSendComment} className={styles.button}>
+          Send
+        </button>
       </div>
 
       {error
