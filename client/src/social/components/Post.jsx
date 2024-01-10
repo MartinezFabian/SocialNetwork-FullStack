@@ -8,7 +8,7 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 import styles from './Post.module.css';
 import { CommentsList } from './CommentsList';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '../../axios';
 import { AuthContext } from '../../context/AuthContext';
 import moment from 'moment';
@@ -25,6 +25,28 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
         return res.data;
       }),
   });
+
+  const queryClient = useQueryClient();
+
+  const giveLike = (isLiked) => {
+    if (isLiked) {
+      return makeRequest.delete(`likes?postid=${id}`);
+    } else {
+      return makeRequest.post('likes', { postId: id });
+    }
+  };
+
+  const mutation = useMutation({
+    mutationFn: giveLike,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['likes'] });
+    },
+  });
+
+  const onLike = () => {
+    mutation.mutate(likesData.includes(currentUser.id)); // true or false based on if the user already liked
+  };
 
   return (
     <li className={styles.container}>
@@ -52,9 +74,9 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
           {isLoading ? (
             'Loading...'
           ) : likesData.includes(currentUser.id) ? (
-            <FavoriteOutlinedIcon />
+            <FavoriteOutlinedIcon onClick={onLike} />
           ) : (
-            <FavoriteBorderOutlinedIcon />
+            <FavoriteBorderOutlinedIcon onClick={onLike} />
           )}
           {likesData?.length} Likes
         </div>

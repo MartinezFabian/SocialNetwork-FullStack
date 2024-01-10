@@ -27,6 +27,10 @@ export const CommentsList = ({ postid }) => {
   };
 
   const onSendComment = () => {
+    if (text === '') {
+      return;
+    }
+
     mutation.mutate({ description: text, postId: postid });
 
     setText('');
