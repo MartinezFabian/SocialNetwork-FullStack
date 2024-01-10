@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import PlaceIcon from '@mui/icons-material/Place';
 import LanguageIcon from '@mui/icons-material/Language';
@@ -16,6 +16,8 @@ export const ProfilePage = () => {
   const { currentUser } = useContext(AuthContext);
   const { id } = useParams();
 
+  // posts data query
+
   const {
     isLoading: isLoadingPosts,
     error: errorPosts,
@@ -28,6 +30,8 @@ export const ProfilePage = () => {
       }),
   });
 
+  // user data query
+
   const {
     isLoading: isLoadingUser,
     error: errorUser,
@@ -39,6 +43,37 @@ export const ProfilePage = () => {
         return res.data;
       }),
   });
+
+  // Follow / Unfollow logic
+  const { data: followersData } = useQuery({
+    queryKey: ['follow'],
+    queryFn: () =>
+      makeRequest.get(`relationship?followedUserId=${id}`).then((res) => {
+        return res.data;
+      }),
+  });
+
+  const queryClient = useQueryClient();
+
+  const follow = (isFollowing) => {
+    if (isFollowing) {
+      return makeRequest.delete(`relationship?userId=${id}`);
+    } else {
+      return makeRequest.post('relationship', { userId: id });
+    }
+  };
+
+  const mutation = useMutation({
+    mutationFn: follow,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['follow'] });
+    },
+  });
+
+  const onFollow = () => {
+    mutation.mutate(followersData.includes(currentUser.id)); //  true or false based on if the user is already following
+  };
 
   return (
     <>
@@ -77,7 +112,9 @@ export const ProfilePage = () => {
               {parseInt(currentUser.id) === parseInt(id) ? (
                 <button className={styles.follow}>Edit Profile</button>
               ) : (
-                <button className={styles.follow}>follow</button>
+                <button onClick={onFollow} className={styles.follow}>
+                  {followersData.includes(currentUser.id) ? 'unfollow' : 'follow'}
+                </button>
               )}
             </div>
           </div>

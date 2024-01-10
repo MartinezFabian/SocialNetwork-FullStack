@@ -74,15 +74,14 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
           {isLoading ? (
             'Loading...'
           ) : likesData.includes(currentUser.id) ? (
-            <FavoriteOutlinedIcon onClick={onLike} />
+            <FavoriteOutlinedIcon onClick={onLike} sx={{ fontSize: 18 }} />
           ) : (
-            <FavoriteBorderOutlinedIcon onClick={onLike} />
+            <FavoriteBorderOutlinedIcon onClick={onLike} sx={{ fontSize: 18 }} />
           )}
           {likesData?.length} Likes
         </div>
         <div onClick={() => setCommentOpen((prevState) => !prevState)} className={styles.item}>
-          <TextsmsOutlinedIcon />
-          22 Comments
+          <TextsmsOutlinedIcon /> Comments
         </div>
       </section>
       {commentOpen ? <CommentsList postid={id}></CommentsList> : null}
