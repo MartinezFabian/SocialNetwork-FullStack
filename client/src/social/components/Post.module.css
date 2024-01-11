@@ -11,6 +11,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  position: relative;
 }
 
 .userInfo {
@@ -80,4 +82,24 @@
   .item {
     font-size: 1.4rem;
   }
+}
+
+.delete {
+  position: absolute;
+  right: 0px;
+  top: 36px;
+
+  padding: 0.5rem 1rem;
+  background-color: indianred;
+  transition: opacity 0.3s ease;
+  border-style: none;
+  border-radius: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete:hover {
+  cursor: pointer;
 }

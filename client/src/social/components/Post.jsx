@@ -5,6 +5,7 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import styles from './Post.module.css';
 import { CommentsList } from './CommentsList';
@@ -15,8 +16,11 @@ import moment from 'moment';
 
 export const Post = ({ id, description, userid, created_ago, name }) => {
   const [commentOpen, setCommentOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
+
+  // likes data query
 
   const { isLoading, data: likesData } = useQuery({
     queryKey: ['likes', id],
@@ -25,6 +29,8 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
         return res.data;
       }),
   });
+
+  // Give like logic
 
   const queryClient = useQueryClient();
 
@@ -36,7 +42,7 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
     }
   };
 
-  const mutation = useMutation({
+  const likeMutation = useMutation({
     mutationFn: giveLike,
     onSuccess: () => {
       // Invalidate and refetch
@@ -45,7 +51,25 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
   });
 
   const onLike = () => {
-    mutation.mutate(likesData.includes(currentUser.id)); // true or false based on if the user already liked
+    likeMutation.mutate(likesData.includes(currentUser.id)); // true or false based on if the user already liked
+  };
+
+  // Delete post logic
+
+  const deletePost = () => {
+    return makeRequest.delete(`posts/${id}`);
+  };
+
+  const deleteMutation = useMutation({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    },
+  });
+
+  const onDeletePost = () => {
+    deleteMutation.mutate();
   };
 
   return (
@@ -62,7 +86,16 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
             <span className={styles.date}>{moment(created_ago).fromNow()}</span>
           </div>
         </div>
-        <MoreHorizIcon />
+        <MoreHorizIcon
+          onClick={() => setDeleteOpen((prevState) => !prevState)}
+          sx={{ fontSize: 18, ':hover': { cursor: 'pointer' } }}
+        />
+
+        {deleteOpen && currentUser.id === userid ? (
+          <button onClick={onDeletePost} className={styles.delete}>
+            <DeleteIcon sx={{ color: '#fff' }}></DeleteIcon>
+          </button>
+        ) : null}
       </section>
 
       <section className={styles.content}>
