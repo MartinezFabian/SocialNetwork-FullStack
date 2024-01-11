@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import styles from './UpdateProfile.module.css';
 import PropTypes from 'prop-types';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { makeRequest } from '../../axios';
 
 export const UpdateProfile = ({ setOpenUpdate, userData }) => {
   const {
@@ -9,8 +11,23 @@ export const UpdateProfile = ({ setOpenUpdate, userData }) => {
     formState: { errors },
   } = useForm();
 
-  const onFormSubmit = handleSubmit(async (data) => {
-    console.log(data);
+  const queryClient = useQueryClient();
+
+  const updateUserData = (newUserData) => {
+    return makeRequest.put('users/', newUserData);
+  };
+
+  const mutation = useMutation({
+    mutationFn: updateUserData,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+    },
+  });
+
+  const onFormSubmit = handleSubmit((data) => {
+    mutation.mutate({ name: data.name, city: data.city, contact: data.email });
+    setOpenUpdate(false);
   });
 
   return (
@@ -20,6 +37,26 @@ export const UpdateProfile = ({ setOpenUpdate, userData }) => {
 
         <div className={styles.content}>
           <form onSubmit={onFormSubmit} className={styles.form}>
+            <div className={styles.field}>
+              <label htmlFor="name" className={styles.label}>
+                Full name
+              </label>
+              <input
+                type="name"
+                id="name"
+                placeholder="name"
+                name="name"
+                defaultValue={userData.name}
+                {...register('name', {
+                  required: { value: true, message: 'Name is required' },
+                  maxLength: { value: 23, message: 'Name must not exceed 23 characters' },
+                  minLength: { value: 3, message: 'Name must be longer than 3 characters' },
+                })}
+                className={styles.input}
+              />
+              {errors.name ? <span className={styles.error}>{errors.name.message}</span> : null}
+            </div>
+
             <div className={styles.field}>
               <label htmlFor="city" className={styles.label}>
                 city
