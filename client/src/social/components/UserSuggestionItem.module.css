@@ -1,0 +1,20 @@
+.link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 0.5rem 5rem;
+  border: solid 1px var(--border-color);
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  transition: background-color 0.3s ease;
+}
+
+.link:hover {
+  background-color: var(--color-background-soft);
+}
+
+.name {
+  font-size: 1rem;
+  color: var(--text-color);
+}

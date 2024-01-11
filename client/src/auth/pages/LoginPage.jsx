@@ -13,9 +13,7 @@ export const LoginPage = () => {
     try {
       await loginUser(data);
 
-      if (currentUser) {
-        navigate('/');
-      }
+      navigate('/');
     } catch (error) {
       console.error(error);
     }

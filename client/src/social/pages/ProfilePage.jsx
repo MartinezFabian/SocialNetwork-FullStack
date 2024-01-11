@@ -48,7 +48,7 @@ export const ProfilePage = () => {
   });
 
   // Follow / Unfollow logic
-  const { data: followersData } = useQuery({
+  const { data: followersData = [] } = useQuery({
     queryKey: ['follow'],
     queryFn: () =>
       makeRequest.get(`relationship?followedUserId=${id}`).then((res) => {
