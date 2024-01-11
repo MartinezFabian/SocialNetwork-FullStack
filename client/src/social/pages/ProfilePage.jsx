@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import PlaceIcon from '@mui/icons-material/Place';
@@ -15,8 +15,9 @@ import { UpdateProfile } from '../components/UpdateProfile';
 
 export const ProfilePage = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, logoutUser } = useContext(AuthContext);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // posts data query
 
@@ -65,7 +66,7 @@ export const ProfilePage = () => {
     }
   };
 
-  const mutation = useMutation({
+  const followMutation = useMutation({
     mutationFn: follow,
     onSuccess: () => {
       // Invalidate and refetch
@@ -74,7 +75,18 @@ export const ProfilePage = () => {
   });
 
   const onFollow = () => {
-    mutation.mutate(followersData.includes(currentUser.id)); //  true or false based on if the user is already following
+    followMutation.mutate(followersData.includes(currentUser.id)); //  true or false based on if the user is already following
+  };
+
+  // logout logic
+
+  const onLogout = async () => {
+    try {
+      await logoutUser();
+      navigate('/login');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -112,12 +124,18 @@ export const ProfilePage = () => {
               </div>
 
               {parseInt(currentUser.id) === parseInt(id) ? (
-                <button
-                  onClick={() => setOpenUpdate((prevState) => !prevState)}
-                  className={styles.follow}
-                >
-                  Edit Profile
-                </button>
+                <div className={styles.buttons}>
+                  <button
+                    onClick={() => setOpenUpdate((prevState) => !prevState)}
+                    className={styles.follow}
+                  >
+                    Edit Profile
+                  </button>
+
+                  <button onClick={onLogout} className={styles.logout}>
+                    Log Out
+                  </button>
+                </div>
               ) : (
                 <button onClick={onFollow} className={styles.follow}>
                   {followersData.includes(currentUser.id) ? 'unfollow' : 'follow'}

@@ -21,12 +21,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logoutUser = async () => {
+    try {
+      setErrorMessage('');
+      await axios.post('http://localhost:8800/api/auth/logout', {
+        withCredentials: true,
+      });
+      setCurrentUser(null);
+      localStorage.removeItem('user');
+    } catch (error) {
+      setErrorMessage(error.response.data);
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(currentUser));
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, loginUser, errorMessage }}>
+    <AuthContext.Provider value={{ currentUser, loginUser, logoutUser, errorMessage }}>
       {children}
     </AuthContext.Provider>
   );
