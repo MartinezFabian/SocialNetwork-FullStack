@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -11,8 +11,10 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { Post } from '../components/Post';
 import styles from './ProfilePage.module.css';
 import { makeRequest } from '../../axios';
+import { UpdateProfile } from '../components/UpdateProfile';
 
 export const ProfilePage = () => {
+  const [openUpdate, setOpenUpdate] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const { id } = useParams();
 
@@ -110,7 +112,12 @@ export const ProfilePage = () => {
               </div>
 
               {parseInt(currentUser.id) === parseInt(id) ? (
-                <button className={styles.follow}>Edit Profile</button>
+                <button
+                  onClick={() => setOpenUpdate((prevState) => !prevState)}
+                  className={styles.follow}
+                >
+                  Edit Profile
+                </button>
               ) : (
                 <button onClick={onFollow} className={styles.follow}>
                   {followersData.includes(currentUser.id) ? 'unfollow' : 'follow'}
@@ -118,6 +125,8 @@ export const ProfilePage = () => {
               )}
             </div>
           </div>
+
+          {openUpdate && <UpdateProfile setOpenUpdate={setOpenUpdate} userData={userData} />}
         </div>
       )}
 
