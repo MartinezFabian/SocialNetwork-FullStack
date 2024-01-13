@@ -48,12 +48,13 @@ export const getPost = (req, res) => {
       ORDER BY p.created_ago DESC;
     `
         : `
-      SELECT p.*, u.name
-      FROM posts AS p INNER JOIN users AS u
+      SELECT p.id, p.description, p.userid, p.created_ago,  MAX(u.name) as name
+      FROM posts AS p INNER JOIN users AS u 
       ON p.userid = u.id
-      LEFT JOIN relationships AS r
+      LEFT JOIN relationships AS r 
       ON r.followed_userid = p.userid
       WHERE r.follower_userid = ? OR p.userid = ?
+      GROUP BY p.id
       ORDER BY p.created_ago DESC;
     `;
 

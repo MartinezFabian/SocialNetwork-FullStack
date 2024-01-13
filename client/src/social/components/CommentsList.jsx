@@ -16,7 +16,7 @@ export const CommentsList = ({ postid }) => {
     error,
     data: commentsData,
   } = useQuery({
-    queryKey: ['comments'],
+    queryKey: ['comments', postid],
     queryFn: () =>
       makeRequest.get(`/comments?postid=${postid}`).then((res) => {
         return res.data;
@@ -71,11 +71,15 @@ export const CommentsList = ({ postid }) => {
         </button>
       </div>
 
-      {error
-        ? 'An error has occurred : ' + error
-        : isLoading
-        ? 'Loading...'
-        : commentsData.map((comment) => <Comment key={comment.id} {...comment}></Comment>)}
+      {error ? (
+        'An error has occurred : ' + error
+      ) : isLoading ? (
+        <div className="loader-container">
+          <span className="loader"></span>
+        </div>
+      ) : (
+        commentsData.map((comment) => <Comment key={comment.id} {...comment}></Comment>)
+      )}
     </section>
   );
 };

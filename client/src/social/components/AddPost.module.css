@@ -52,9 +52,3 @@
   cursor: pointer;
   opacity: 0.8;
 }
-
-@media (min-width: 468px) {
-  .button {
-    font-size: 1.4rem;
-  }
-}

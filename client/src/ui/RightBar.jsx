@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
 import { UserSuggestionItem } from '../social/components/UserSuggestionItem';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 export const RightBar = () => {
   const { currentUser } = useContext(AuthContext);
@@ -24,18 +25,25 @@ export const RightBar = () => {
   return (
     <aside className={styles.aside}>
       <div className={styles.card}>
-        <p className={styles.title}>Suggestions for you</p>
+        <p className={styles.title}>
+          <GroupAddIcon></GroupAddIcon>
+          Suggestions for you
+        </p>
 
         <ul className={styles.list}>
-          {error
-            ? 'Something went wrong'
-            : isLoading
-            ? 'Loading...'
-            : allUsers.map((user) => {
-                return user.id === currentUser.id ? null : (
-                  <UserSuggestionItem key={user.id} {...user}></UserSuggestionItem>
-                );
-              })}
+          {error ? (
+            'Something went wrong'
+          ) : isLoading ? (
+            <div className="loader-container">
+              <span className="loader"></span>
+            </div>
+          ) : (
+            allUsers.map((user) => {
+              return user.id === currentUser.id ? null : (
+                <UserSuggestionItem key={user.id} {...user}></UserSuggestionItem>
+              );
+            })
+          )}
         </ul>
       </div>
     </aside>

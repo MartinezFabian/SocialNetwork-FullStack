@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import styles from './RegisterPage.module.css';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 export const RegisterPage = () => {
   const [error, setError] = useState('');
@@ -15,9 +16,21 @@ export const RegisterPage = () => {
     reset,
   } = useForm();
 
+  const { loginUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const onFormSubmit = handleSubmit(async (data) => {
     try {
+      // Register User
       await axios.post('http://localhost:8800/api/auth/register', data);
+
+      // Login User
+
+      const { username, password } = data;
+
+      await loginUser({ username, password });
+
+      navigate('/');
 
       reset();
     } catch (error) {

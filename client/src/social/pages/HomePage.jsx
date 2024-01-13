@@ -20,7 +20,9 @@ export const HomePage = () => {
       {error ? (
         'An error has occurred: ' + error
       ) : isLoading ? (
-        'Loading...'
+        <div className="loader-container">
+          <span className="loader"></span>
+        </div>
       ) : (
         <ul className={styles.posts}>
           {data.map((post) => {

@@ -11,12 +11,10 @@
     height: 100vh;
     background-color: var(--color-background);
     z-index: 1;
-
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     padding: 8rem 4rem;
     display: flex;
     flex-direction: column;
-    background-color: var(--color-background);
+    border-right: 1px solid var(--border-color);
   }
 }
 
@@ -44,11 +42,11 @@
 
 .link:hover,
 .link:focus {
-  background-color: var(--color-primary--soft);
+  background-color: #303030;
   color: var(--text-color);
 }
 
 .active {
-  background-color: var(--color-primary);
+  background-color: #272727;
   color: var(--text-color);
 }

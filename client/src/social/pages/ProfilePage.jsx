@@ -4,9 +4,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import PlaceIcon from '@mui/icons-material/Place';
-import LanguageIcon from '@mui/icons-material/Language';
+import EmailIcon from '@mui/icons-material/Email';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import EditIcon from '@mui/icons-material/Edit';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import { Post } from '../components/Post';
 import styles from './ProfilePage.module.css';
@@ -94,7 +96,9 @@ export const ProfilePage = () => {
       {errorUser ? (
         'An error has occurred: ' + errorUser
       ) : isLoadingUser ? (
-        'Loading...'
+        <div className="loader-container">
+          <span className="loader"></span>
+        </div>
       ) : (
         <div className={styles.container}>
           <div className={styles.content}>
@@ -118,7 +122,7 @@ export const ProfilePage = () => {
                   <span className={styles.city}>{userData.city}</span>
                 </div>
                 <div className={styles.item}>
-                  <LanguageIcon />
+                  <EmailIcon />
                   <a className={styles.contact}>{userData.contact}</a>
                 </div>
               </div>
@@ -129,10 +133,12 @@ export const ProfilePage = () => {
                     onClick={() => setOpenUpdate((prevState) => !prevState)}
                     className={styles.follow}
                   >
+                    <EditIcon />
                     Edit Profile
                   </button>
 
                   <button onClick={onLogout} className={styles.logout}>
+                    <LogoutIcon />
                     Log Out
                   </button>
                 </div>
@@ -151,7 +157,9 @@ export const ProfilePage = () => {
       {errorPosts ? (
         'An error has occurred: ' + errorPosts
       ) : isLoadingPosts ? (
-        'Loading...'
+        <div className="loader-container">
+          <span className="loader"></span>
+        </div>
       ) : (
         <ul className={styles.posts}>
           {posts.map((post) => {

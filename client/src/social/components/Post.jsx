@@ -105,7 +105,9 @@ export const Post = ({ id, description, userid, created_ago, name }) => {
       <section className={styles.info}>
         <div className={styles.item}>
           {isLoading ? (
-            'Loading...'
+            <div className="loader-container">
+              <span className="loader"></span>
+            </div>
           ) : likesData.includes(currentUser.id) ? (
             <FavoriteOutlinedIcon onClick={onLike} sx={{ fontSize: 18 }} />
           ) : (

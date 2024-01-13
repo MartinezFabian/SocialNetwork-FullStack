@@ -3,11 +3,11 @@
   --color-primary: #5448ee;
   --color-primary--soft: #766cff;
   --color-background: #191919;
-  --color-background-soft: #2d2d2d;
+  --color-background-soft: rgb(31 31 31);
   --text-color: rgb(227, 227, 227);
   --text-color-soft: rgb(210, 209, 209);
   --logo-color: rgb(242, 242, 242);
-  --border-color: #444;
+  --border-color: #2c2c2c;
 }
 
 /* Global Styles */
@@ -41,4 +41,22 @@ ul {
 
 button {
   font-family: 'Inter', sans-serif;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #766cff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.loader-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
