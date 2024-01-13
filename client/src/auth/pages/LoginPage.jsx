@@ -3,6 +3,7 @@ import styles from './LoginPage.module.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import web_preview from '../../../public/images/web_preview.webp';
 
 export const LoginPage = () => {
   const { register, handleSubmit } = useForm();
@@ -20,51 +21,55 @@ export const LoginPage = () => {
   });
 
   return (
-    <main className={styles.card}>
-      <h1 className={styles.title}>Sign in</h1>
+    <div className={styles.container}>
+      <main className={styles.card}>
+        <h1 className={styles.title}>Sign in</h1>
+        <div className={styles.content}>
+          <form onSubmit={onFormSubmit} className={styles.form}>
+            <div className={styles.field}>
+              <label htmlFor="username" className={styles.label}>
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                placeholder="username"
+                name="username"
+                {...register('username', { required: true })}
+                className={styles.input}
+              />
+            </div>
 
-      <div className={styles.content}>
-        <form onSubmit={onFormSubmit} className={styles.form}>
-          <div className={styles.field}>
-            <label htmlFor="username" className={styles.label}>
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              placeholder="username"
-              name="username"
-              {...register('username', { required: true })}
-              className={styles.input}
-            />
-          </div>
+            <div className={styles.field}>
+              <label htmlFor="password" className={styles.label}>
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="password"
+                name="password"
+                {...register('password', { required: true })}
+                className={styles.input}
+              />
+            </div>
 
-          <div className={styles.field}>
-            <label htmlFor="password" className={styles.label}>
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="password"
-              name="password"
-              {...register('password', { required: true })}
-              className={styles.input}
-            />
-          </div>
+            <div className={styles.buttons}>
+              <Link to="/register">
+                <button className={styles.button}>Register</button>
+              </Link>
+              <button type="submit" className={styles.button}>
+                Sign in
+              </button>
+            </div>
 
-          <div className={styles.buttons}>
-            <Link to="/register">
-              <button className={styles.button}>Register</button>
-            </Link>
-            <button type="submit" className={styles.button}>
-              Sign in
-            </button>
-          </div>
-
-          {errorMessage !== '' ? <span className={styles.error}>{errorMessage}</span> : null}
-        </form>
+            {errorMessage !== '' ? <span className={styles.error}>{errorMessage}</span> : null}
+          </form>
+        </div>
+      </main>
+      <div className={styles.imagecontainer}>
+        <img src={web_preview} className={styles.image}></img>
       </div>
-    </main>
+    </div>
   );
 };
