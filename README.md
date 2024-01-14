@@ -4,7 +4,9 @@
     <img src="client/public/images/web_preview.webp" alt="preview">
   </a>
 
-[Social Network video demo](https://www.youtube.com/watch?v=ffUWIax0hcg)
+## Video Demonstration
+
+For a more visual overview, watch the project in action on the [Video Demonstration](https://www.youtube.com/watch?v=ffUWIax0hcg)
 
 ## Description
 
