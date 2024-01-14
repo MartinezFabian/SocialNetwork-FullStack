@@ -4,6 +4,8 @@
     <img src="client/public/images/web_preview.webp" alt="preview">
   </a>
 
+[Social Network video demo](https://www.youtube.com/watch?v=ffUWIax0hcg)
+
 ## Description
 
 This FullStack application integrates Node.js, Express.js, MySQL, and React to provide users with a dynamic and secure social experience. Leveraging technologies such as JSON Web Token for authentication, bcryptjs for password encryption, and TanStack (React Query) for efficient data fetching.
